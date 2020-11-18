@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @ProjectName: dylcrm
@@ -34,10 +35,9 @@ public class UserServiceImpl implements UserService {
         user.setLoginPwd(MD5Util.getMD5(user.getLoginPwd()));
         user = userMapper.selectOne(user);
         if (user == null){
-            throw new CrmException(CrmExceptionEnum.LOGIN_ACCOUNT_ERROR);
+                throw new CrmException(CrmExceptionEnum.LOGIN_ACCOUNT_ERROR);
         }else {
             int i = DateTimeUtil.getSysTime().compareTo(user.getExpireTime());
-            System.out.println(i);
             if (i > 0){
                 throw new CrmException(CrmExceptionEnum.LOGIN_ACCOUNT_EXPIRE);
             }
@@ -46,5 +46,10 @@ public class UserServiceImpl implements UserService {
             }
         }
         return user;
+    }
+
+    @Override
+    public List<User> queryAllUser() {
+        return userMapper.selectAll();
     }
 }

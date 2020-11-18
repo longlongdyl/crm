@@ -2,6 +2,8 @@ package com.sh2004.service;
 
 import com.sh2004.bean.User;
 
+import java.util.List;
+
 /**
  * @ProjectName: dylcrm
  * @Package: com.sh2004.service
@@ -14,4 +16,6 @@ import com.sh2004.bean.User;
  */
 public interface UserService {
     User dologin(User user);
+
+    List<User> queryAllUser();
 }

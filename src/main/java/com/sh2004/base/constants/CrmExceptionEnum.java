@@ -11,9 +11,11 @@ package com.sh2004.base.constants;
  * Copyright: Copyright (c) 2020
  */
 public enum CrmExceptionEnum {
-    LOGIN_ACCOUNT_ERROR("1","账号或者密码错误"),
+    LOGIN_ACCOUNT_ERROR ("1","账号或者密码错误"),
     LOGIN_ACCOUNT_EXPIRE("1","账号已经过期了"),
-    LOGIN_ACCOUNT_FORBID("1","账户被禁用");
+    LOGIN_ACCOUNT_FORBID("1","账户被禁用"),
+
+    ACTIVITY_ADD_FALSE("2","添加失败");
 
     private String code;
     private String mess;

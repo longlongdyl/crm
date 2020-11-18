@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @ProjectName: dylcrm
@@ -43,5 +45,11 @@ public class UserController {
         }
 
         return "index";
+    }
+
+    @RequestMapping("/workbench/activity/queryAllUser")
+    @ResponseBody
+    public List<User>  queryAllUser(){
+        return userService.queryAllUser();
     }
 }
