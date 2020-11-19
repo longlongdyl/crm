@@ -445,7 +445,7 @@
 					$('#activityList').append("<tr style=\"color: #3278b3;\">\n" +
 							"<input class='acid' type=\"hidden\" value="+list[i].id+" />" +
 							"<td><input name='check' class='check' type=\"checkbox\" /></td>\n" +
-							"<td>"+list[i].name+"</td>\n" +
+							"<td><a  href=/crm/workbench/activity/queryActivityDetailById?id="+list[i].id+">"+list[i].name+"</a></td>\n" +
 							"<td>"+list[i].uname+"</td>\n" +
 							"<td>"+list[i].startDate+"</td>\n" +
 							"<td>"+list[i].endDate+"</td>\n" +
