@@ -26,4 +26,6 @@ public interface ActivityService {
     void updateActivity(Activity activity);
 
     void deleteActivity(String ids);
+
+    Activity activityRemark(String id);
 }

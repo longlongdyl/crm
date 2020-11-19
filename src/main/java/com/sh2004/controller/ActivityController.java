@@ -11,6 +11,7 @@ import com.sh2004.bean.ActivityQueryVo;
 import com.sh2004.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -103,5 +104,13 @@ public class ActivityController {
     public Activity forActivityId(Activity activity){
 
         return activityService.forActivityId(activity);
+    }
+
+    @RequestMapping("/workbench/activity/queryActivityDetailById")
+    public String queryActivityDetailById(String id, Model model){
+
+        Activity activity = activityService.activityRemark(id);
+        model.addAttribute("activity",activity);
+        return "forward:/toView/activity/detail";
     }
 }

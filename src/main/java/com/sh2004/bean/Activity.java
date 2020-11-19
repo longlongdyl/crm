@@ -5,6 +5,7 @@ import tk.mybatis.mapper.code.Style;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * @ProjectName: crm
@@ -32,7 +33,35 @@ public class Activity {
     private String createBy;
     private String editTime;
     private String editBy;
+    private List<ActivityRemark> activityRemark;
 
+
+
+    public List<ActivityRemark> getActivityRemark() {
+        return activityRemark;
+    }
+
+    public void setActivityRemark(List<ActivityRemark> activityRemark) {
+        this.activityRemark = activityRemark;
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id='" + id + '\'' +
+                ", owner='" + owner + '\'' +
+                ", name='" + name + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", cost='" + cost + '\'' +
+                ", description='" + description + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", editTime='" + editTime + '\'' +
+                ", editBy='" + editBy + '\'' +
+                ", activityRemark=" + activityRemark +
+                '}';
+    }
 
     public String getId() {
         return id;
@@ -122,20 +151,4 @@ public class Activity {
         this.editBy = editBy;
     }
 
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "id='" + id + '\'' +
-                ", owner='" + owner + '\'' +
-                ", name='" + name + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
-                ", cost='" + cost + '\'' +
-                ", description='" + description + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", createBy='" + createBy + '\'' +
-                ", editTime='" + editTime + '\'' +
-                ", editBy='" + editBy + '\'' +
-                '}';
-    }
 }

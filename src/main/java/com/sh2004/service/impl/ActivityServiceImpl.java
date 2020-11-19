@@ -4,7 +4,11 @@ import com.sh2004.base.constants.CrmExceptionEnum;
 import com.sh2004.base.exception.CrmException;
 import com.sh2004.bean.Activity;
 import com.sh2004.bean.ActivityQueryVo;
+import com.sh2004.bean.ActivityRemark;
+import com.sh2004.bean.User;
 import com.sh2004.mapper.ActivityMapper;
+import com.sh2004.mapper.ActivityRemarkMapper;
+import com.sh2004.mapper.UserMapper;
 import com.sh2004.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +30,10 @@ import java.util.Map;
 public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityMapper activityMapper;
+    @Autowired
+    private ActivityRemarkMapper activityRemarkMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public List<Map<String, String>> queryActivity(ActivityQueryVo activity) {
@@ -73,6 +81,18 @@ public class ActivityServiceImpl implements ActivityService {
                 throw new CrmException(CrmExceptionEnum.ACTIVITY_ADD_FALSE);
             }
         }
+    }
+
+    @Override
+    public Activity activityRemark(String id) {
+        Activity activity = activityMapper.selectByPrimaryKey(id);
+        User user = new User();
+        user.setId(activity.getOwner());
+        activity.setOwner(userMapper.selectOne(user).getName());
+        List<ActivityRemark> list = activityRemarkMapper.queryByActivityId(id);
+        System.out.println(list.size());
+        activity.setActivityRemark(list);
+        return  activity;
     }
 
 }
