@@ -90,7 +90,6 @@ public class ActivityServiceImpl implements ActivityService {
         user.setId(activity.getOwner());
         activity.setOwner(userMapper.selectOne(user).getName());
         List<ActivityRemark> list = activityRemarkMapper.queryByActivityId(id);
-        System.out.println(list.size());
         activity.setActivityRemark(list);
         return  activity;
     }

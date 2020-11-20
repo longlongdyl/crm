@@ -6,7 +6,7 @@
 
 
   <select id="queryByActivityId" resultType="com.sh2004.bean.ActivityRemark">
-      select * from tbl_activity_remark where activityId = #{id}
+      select * from tbl_activity_remark where activityId = #{id}  ORDER BY  createTime desc
   </select>
 
 

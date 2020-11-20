@@ -54,6 +54,10 @@
 </head>
 <body>
 	<!-- 修改市场活动备注的模态窗口 -->
+	<link href="/crm/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="/crm/jquery/jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" src="/crm/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+
 	<div class="modal fade" id="editRemarkModal" role="dialog">
 		<%-- 备注的id --%>
 		<input type="hidden" id="remarkId">
@@ -214,8 +218,10 @@
 		<div class="page-header">
 			<h4>备注</h4>
 		</div>
+	<div id="div1">
+	</div>
 		 <c:forEach items="${activity.activityRemark}" var="activityRemark">
-		<div class="remarkDiv" style="height: 60px;">
+		<div class="remarkDiv" style="height: 60px;" id="remarkDiv${activityRemark.id}">
 			<img title="${activity.owner}" src="../../image/user-thumbnail.png" style="width: 30px; height:30px;">
 
 			<div style="position: relative; top: -40px; left: 40px;" >
@@ -224,10 +230,12 @@
 				<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">
 					<a class="myHref" href="javascript:void(0);"><span id="${activityRemark.id}" onclick="updateActivityRemark($(this))" class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: #E6E6E6;"></span></a>
+					<a class="myHref" href="javascript:void(0);" ><span id="${activityRemark.id}" onclick="deleteActivityRemark($(this))" class="glyphicon glyphicon-remove" style="font-size: 20px; color: #E6E6E6;"></span></a>
 				</div>
 			</div>
 		</div>
+
+
 			 <script>
 				 function updateActivityRemark(momo) {
 				 	var i = momo.prop('id');
@@ -237,7 +245,26 @@
 					 //模态窗隐藏input 传入ID
 					 $('#remarkId').val(i)
 				 }
+
+				 function deleteActivityRemark(momo) {
+					 if (confirm("确认删除此条备注?")) {
+					 	var id = momo.prop('id');
+
+						 $.ajax({
+							 url:'/crm/workbench/activity/deleteActivityRemark',
+							 data:{'id':id},
+							 type:'post',
+							 dataType:'json',
+							 success :function (data) {
+								 alert(data.message);
+								 $("#remarkDiv"+id).remove()
+							 }
+						 })
+
+					 }
+				 }
 			 </script>
+
 		 </c:forEach>
 			<script>
 				$('#updateRemarkBtn').click(function () {
@@ -256,14 +283,44 @@
 							$("#"+id+"").html(noteContent);
 						}
 					})
-				})
+				});
+				function addActivityRemark(){
+					var mydate = new Date();
+					var onedate = mydate.toLocaleString('chinese', { hour12: false });
+					$.ajax({
+						url:'/crm/workbench/activity/addActivityRemark',
+						data:{'remark':$('#remark').val(),
+							'activityId':'${activity.id}'},
+						type:'post',
+						dataType:'json',
+						success :function (data){
+							alert(data.message);
+							$('#div1').prepend("\t\t\t <div class=\"remarkDiv\" style=\"height: 60px;\">\n" +
+									"\t\t\t\t <img title=\"${activity.owner}\" src=\"../../image/user-thumbnail.png\" style=\"width: 30px; height:30px;\">\n" +
+									"\n" +
+									"\t\t\t\t <div style=\"position: relative; top: -40px; left: 40px;\" >\n" +
+									"\t\t\t\t\t <h5 id=\"${activityRemark.id}\">"+$('#remark').val()+"</h5>\n" +
+									"\t\t\t\t\t <font color=\"gray\">市场活动</font> <font color=\"gray\">-</font> <b>${activity.name}</b> <small style=\"color: gray;\">"+onedate+"由${activity.owner}</small>\n" +
+									"\t\t\t\t\t <div style='position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;'> " +
+									"\t\t\t\t\t\t  <a class=\"myHref\" href=\"javascript:void(0);\"><span  onclick='updateActivityRemark($(this))' class='glyphicon glyphicon-edit' style'font-size: 20px; color: #E6E6E6;'></span></a>\n" +
+									"\t\t\t\t\t\t <a class=\"myHref\" href=\"javascript:void(0);\"><span class=\"glyphicon glyphicon-remove\" style=\"font-size: 20px; color: #E6E6E6;\"></span></a>\n" +
+									"\t\t\t\t\t </div>\n" +
+									"\t\t\t\t </div>\n" +
+									"\t\t\t </div>");
+							$('#remark').val('');
+						}
+					})
+					/*window.location.href = "/crm/workbench/activity/addActivityRemark?remark="+$('#remark').val()+
+							"&activityId="+$('#id').val()*/
+				}
+
 			</script>
 		
 		<div id="remarkDiv" style="background-color: #E6E6E6; width: 870px; height: 90px;">
 			<form role="form" style="position: relative;top: 10px; left: 10px;">
 				<textarea id="remark" class="form-control" style="width: 850px; resize : none;" rows="2"  placeholder="添加备注..."></textarea>
 				<p id="cancelAndSaveBtn" style="position: relative;left: 737px; top: 10px; display: none;">
-					<button type="button" class="btn btn-primary" id="btn2">保存</button>
+					<button type="button" class="btn btn-primary" onclick="addActivityRemark()">保存</button>
 					<button id="cancelBtn" type="button" class="btn btn-danger">取消</button>
 				</p>
 			</form>

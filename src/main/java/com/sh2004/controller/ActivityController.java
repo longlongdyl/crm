@@ -8,6 +8,7 @@ import com.sh2004.base.exception.CrmException;
 import com.sh2004.base.util.UUIDUtil;
 import com.sh2004.bean.Activity;
 import com.sh2004.bean.ActivityQueryVo;
+import com.sh2004.bean.ActivityRemark;
 import com.sh2004.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -110,6 +112,7 @@ public class ActivityController {
     public String queryActivityDetailById(String id, Model model){
 
         Activity activity = activityService.activityRemark(id);
+
         model.addAttribute("activity",activity);
         return "forward:/toView/activity/detail";
     }

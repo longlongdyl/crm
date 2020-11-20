@@ -32,7 +32,7 @@
         <property name="dataSource" ref="dataSource" />
 
         <!--Mybatis:扫描包,给定实体类别名,默认是类名首字母小写-->
-        <property name="typeAliasesPackage" value= "com.sh2004.bean" />
+        <property name="typeAliasesPackage" value= "com.sh2004.base.bean,com.sh2004.bean" />
 
         <!--批量扫描映射文件-->
         <property name="mapperLocations" value="classpath:mappers/*.xml" />
@@ -58,7 +58,7 @@
         扫描mapper接口:目的就是为了给mapper接口生成子类
     -->
     <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.sh2004.mapper"/>
+        <property name="basePackage" value="com.sh2004.mapper,com.sh2004.base.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 

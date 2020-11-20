@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -15,6 +16,14 @@
 	</div>
 	
 	<div style="position: absolute; top: 120px; right: 100px;width:450px;height:400px;border:1px solid #D5D5D5">
+		<c:forEach items="${caChes}" var="caChe">
+			<c:if test="${caChe.code == 'stage'}">
+				<c:forEach items="${caChe.caCheValueList}" var="caCheValue">
+					${caCheValue.value}
+				</c:forEach>
+			</c:if>
+		</c:forEach>
+
 		<div style="position: absolute; top: 0px; right: 60px;">
 			<div class="page-header">
 				<h1>登录</h1>

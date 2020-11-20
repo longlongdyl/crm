@@ -12,6 +12,7 @@
 	http://www.springframework.org/schema/tx
 	 http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+
     <!--引入db.properties-->
     <context:property-placeholder location="classpath:spring/db.properties" />
 
@@ -20,7 +21,7 @@
         1、扫描包
         2、加注解
     -->
-    <context:component-scan base-package="com.sh2004" />
+    <context:component-scan base-package="com.sh2004.base.service,com.sh2004.service" />
 
 
     <import resource="classpath:spring/spring-service.xml" />
