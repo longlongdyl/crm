@@ -20,17 +20,29 @@ import java.io.File;
 @Controller
 public class ViewController {
 
-    @RequestMapping({"/toView/{modalView}/{view}","/toView/{view}"})
+    @RequestMapping({"/toView/{modalView}/{view}","/toView/{view}",
+            "/toView/{modalView}/{view}/{view1}", "/toView/{modalView}/{view}/{view1}/{view2}"})
     public String toView(
-
             @PathVariable(value = "modalView",required = false) String modalView,
-            @PathVariable("view") String view){
+            @PathVariable(value = "view",required = false) String view,
+            @PathVariable(value = "view1",required = false) String view1,
+            @PathVariable(value = "view2",required = false) String view2){
 
-        if(modalView != null){
+        if (view1 != null && modalView !=null && view !=null && view2!=null){
 
-            return modalView + File.separator + view;
+            return File.separator + modalView + File.separator + view + File.separator + view1+ File.separator + view2;
+
+        }
+
+        if (view1 != null && modalView !=null && view !=null){
+
+            return File.separator + modalView + File.separator + view + File.separator + view1;
+        }
+        if(modalView != null && view !=null){
+
+            return File.separator +modalView + File.separator + view;
         }else{
-            return view;
+            return File.separator +view;
         }
     }
 }

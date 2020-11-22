@@ -8,6 +8,6 @@
 
 </head>
 <body>
-	<img src="../../image/home.png" style="position: relative;top: -10px; left: -10px; width: 100%; "/>
+	<img src="/crm/image/home.png" style="position: relative;top: -10px; left: -10px; width: 100%; "/>
 </body>
 </html>

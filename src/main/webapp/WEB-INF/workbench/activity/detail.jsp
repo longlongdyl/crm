@@ -226,7 +226,7 @@
 
 			<div style="position: relative; top: -40px; left: 40px;" >
 				<h5 id="${activityRemark.id}">${activityRemark.noteContent}</h5>
-				<font color="gray">市场活动</font> <font color="gray">-</font> <b>${activity.name}</b> <small style="color: gray;">${activityRemark.createTime}由${activity.owner}</small>
+				<font color="gray">市场活动</font> <font color="gray">-</font> <b>${activity.name}</b> <small style="color: gray;">${activityRemark.createTime}由${activityRemark.createBy}</small>
 				<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">
 					<a class="myHref" href="javascript:void(0);"><span id="${activityRemark.id}" onclick="updateActivityRemark($(this))" class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
@@ -234,18 +234,7 @@
 				</div>
 			</div>
 		</div>
-
-
 			 <script>
-				 function updateActivityRemark(momo) {
-				 	var i = momo.prop('id');
-				 	//模态窗赋值
-					 $('#noteContent').val($("#"+i+"").html());
-					 $('#editRemarkModal').modal('show');
-					 //模态窗隐藏input 传入ID
-					 $('#remarkId').val(i)
-				 }
-
 				 function deleteActivityRemark(momo) {
 					 if (confirm("确认删除此条备注?")) {
 					 	var id = momo.prop('id');
@@ -260,13 +249,20 @@
 								 $("#remarkDiv"+id).remove()
 							 }
 						 })
-
 					 }
 				 }
 			 </script>
 
 		 </c:forEach>
 			<script>
+				function updateActivityRemark(momo) {
+					var i = momo.prop('id');
+					//模态窗赋值
+					$('#noteContent').val($("#"+i+"").html());
+					$('#editRemarkModal').modal('show');
+					//模态窗隐藏input 传入ID
+					$('#remarkId').val(i)
+				}
 				$('#updateRemarkBtn').click(function () {
 				//	alert($('#remarkId').val()+$('#noteContent').val())
 					var id = $('#remarkId').val();
@@ -280,10 +276,12 @@
 						success :function (data) {
 							alert(data.message);
 							$('#editRemarkModal').modal('hide');
-							$("#"+id+"").html(noteContent);
+							$("#"+id).html(noteContent);
 						}
 					})
 				});
+
+
 				function addActivityRemark(){
 					var mydate = new Date();
 					var onedate = mydate.toLocaleString('chinese', { hour12: false });
@@ -295,21 +293,27 @@
 						dataType:'json',
 						success :function (data){
 							alert(data.message);
-							$('#div1').prepend("\t\t\t <div class=\"remarkDiv\" style=\"height: 60px;\">\n" +
+							$('#div1').prepend("<link href=\"/crm/jquery/bootstrap_3.3.0/css/bootstrap.min.css\" type=\"text/css\" rel=\"stylesheet\" />"+
+									"\t\t\t <div class=\"remarkDiv\" style=\"height: 60px;\">\n" +
 									"\t\t\t\t <img title=\"${activity.owner}\" src=\"../../image/user-thumbnail.png\" style=\"width: 30px; height:30px;\">\n" +
 									"\n" +
 									"\t\t\t\t <div style=\"position: relative; top: -40px; left: 40px;\" >\n" +
 									"\t\t\t\t\t <h5 id=\"${activityRemark.id}\">"+$('#remark').val()+"</h5>\n" +
-									"\t\t\t\t\t <font color=\"gray\">市场活动</font> <font color=\"gray\">-</font> <b>${activity.name}</b> <small style=\"color: gray;\">"+onedate+"由${activity.owner}</small>\n" +
-									"\t\t\t\t\t <div style='position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;'> " +
-									"\t\t\t\t\t\t  <a class=\"myHref\" href=\"javascript:void(0);\"><span  onclick='updateActivityRemark($(this))' class='glyphicon glyphicon-edit' style'font-size: 20px; color: #E6E6E6;'></span></a>\n" +
-									"\t\t\t\t\t\t <a class=\"myHref\" href=\"javascript:void(0);\"><span class=\"glyphicon glyphicon-remove\" style=\"font-size: 20px; color: #E6E6E6;\"></span></a>\n" +
-									"\t\t\t\t\t </div>\n" +
+									"\t\t\t\t\t <font color=\"gray\">线索</font> <font color=\"gray\">-</font> <b>${activity.name}</b> <small style=\"color: gray;\">"+onedate+"由${user.name}</small>\n" +
+									" <div style=\"position: relative; left: 500px; top: -30px; height: 30px; width: 100px;display=none; \"> " +
+									"<button >123</button> &nbsp;&nbsp;&nbsp;&nbsp;" +
+									"<button >123</button>" +
+									" </div>" +
 									"\t\t\t\t </div>\n" +
 									"\t\t\t </div>");
 							$('#remark').val('');
 						}
-					})
+					});
+
+
+					<%--<link href="/crm/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+							<script type="text/javascript" src="/crm/jquery/jquery-1.11.1-min.js"></script>
+		<script type="text/javascript" src="/crm/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>--%>
 					/*window.location.href = "/crm/workbench/activity/addActivityRemark?remark="+$('#remark').val()+
 							"&activityId="+$('#id').val()*/
 				}

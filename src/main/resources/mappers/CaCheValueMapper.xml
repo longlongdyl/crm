@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sh2004.base.mapper.CaCheValueMapper">
 
-<select id="queryList" resultType="com.sh2004.base.bean.CaCheValue">
-    select * from tbl_dic_value where typeCode = #{code}
+<select id="queryList" resultType="caCheValue">
+    select * from tbl_dic_value where typeCode = #{code} order by text
 </select>
 </mapper>

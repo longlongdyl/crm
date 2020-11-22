@@ -1,11 +1,14 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-<meta charset="UTF-8">
-<link href="../../../jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<meta charset="UTF-8">
 
-<script type="text/javascript" src="../../../jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="../../../jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+	<link href="/crm/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<link href="/crm/jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+
+	<script type="text/javascript" src="/crm/jquery/jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" src="/crm/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -36,46 +39,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="active">
-					<td><input type="checkbox" /></td>
-					<td>1</td>
-					<td>m</td>
-					<td>男</td>
-					<td>1</td>
-					<td>sex</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>2</td>
-					<td>f</td>
-					<td>女</td>
-					<td>2</td>
-					<td>sex</td>
-				</tr>
-				<tr class="active">
-					<td><input type="checkbox" /></td>
-					<td>3</td>
-					<td>1</td>
-					<td>一级部门</td>
-					<td>1</td>
-					<td>orgType</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>4</td>
-					<td>2</td>
-					<td>二级部门</td>
-					<td>2</td>
-					<td>orgType</td>
-				</tr>
-				<tr class="active">
-					<td><input type="checkbox" /></td>
-					<td>5</td>
-					<td>3</td>
-					<td>三级部门</td>
-					<td>3</td>
-					<td>orgType</td>
-				</tr>
+			<% int i = 1;%>
+			<c:forEach items="${caChes}" var="caChe">
+					<c:forEach items="${caChe.caCheValueList}" var="caCheValue">
+						<tr class="active">
+							<td><input type="checkbox" /></td>
+							<td><%=i++%></td>
+							<td>${caCheValue.value}</td>
+							<td>${caCheValue.text}</td>
+							<td>${caCheValue.orderNo}</td>
+							<td>${caCheValue.typeCode}</td>
+						</tr>
+					</c:forEach>
+			</c:forEach>
 			</tbody>
 		</table>
 	</div>

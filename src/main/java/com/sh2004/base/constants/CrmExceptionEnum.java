@@ -17,7 +17,10 @@ public enum CrmExceptionEnum {
 
     ACTIVITY_ADD_FALSE("2","添加失败"),
     ACTIVITY_UPDATE_REMARK("2","修改备注失败"),
-    ACTIVITY_DELETE_REMARK("2","删除备注失败");
+    ACTIVITY_DELETE_REMARK("2","删除备注失败"),
+
+    CLUEREMARK_UPDATE("3","修改线索备注失败");
+
     private String code;
     private String mess;
 

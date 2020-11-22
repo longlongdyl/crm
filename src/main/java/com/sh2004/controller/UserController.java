@@ -44,7 +44,7 @@ public class UserController {
             return "../../index";
         }
 
-        return "index";
+        return "/workbench/index";
     }
 
     @RequestMapping("/workbench/activity/queryAllUser")

@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="../jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="../jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="../jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+<link href="/crm/jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/crm/jquery/jquery-1.11.1-min.js"></script>
+<script type="text/javascript" src="/crm/jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -140,7 +140,7 @@
 				 -->
 				<a href="dept/index.jsp">部门管理</a>
 				<br>
-				<a href="qx/index.html">权限管理</a>
+				<a href="qx/index.jsp">权限管理</a>
 			</div>
 			
 			<div style="position: relative; width: 33%; height: 50%; left: 33%; top: -100%">
@@ -176,7 +176,7 @@
 			<div style="position: relative; width: 34%; height: 50%; left: 66%; top: -200%">
 				数据管理
 				<br><br>
-				<a href="dictionary/index.html">数据字典表</a>
+				<a href="/crm/toView/settings/dictionary/index">数据字典表</a>
 				<br>
 				<a href="javascript:void(0);">导入</a>
 				<br>

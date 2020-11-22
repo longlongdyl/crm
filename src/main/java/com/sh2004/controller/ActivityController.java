@@ -43,13 +43,11 @@ public class ActivityController {
     public PaginationVo queryActivity(ActivityQueryVo activity,@RequestParam(defaultValue = "1",required = false)
             int page,@RequestParam(defaultValue = "1",required = false) int pageSize){
 
-         PageHelper.startPage(page,pageSize);
+        PageHelper.startPage(page,pageSize);
         List<Map<String,String>> activitys =  activityService.queryActivity(activity);
         PageInfo<Map<String,String>> pageInfo = new PageInfo<>(activitys);
         PaginationVo paginationVo = new PaginationVo(pageInfo);
         return paginationVo;
-
-
     }
 
 
@@ -114,6 +112,6 @@ public class ActivityController {
         Activity activity = activityService.activityRemark(id);
 
         model.addAttribute("activity",activity);
-        return "forward:/toView/activity/detail";
+        return "forward:/toView/workbench/activity/detail";
     }
 }

@@ -35,7 +35,7 @@
 	 	转发、重定向
 	 -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/workbench/"/>
+		<property name="prefix" value="/WEB-INF"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
 

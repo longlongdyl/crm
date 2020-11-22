@@ -59,7 +59,7 @@ public class ActivityRemarkServiceImpl implements ActivityRemarkService {
     public void deleteActivityRemark(String id) {
         int i = activityRemarkMapper.deleteByPrimaryKey(id);
         if (i==0){
-            throw new CrmException(CrmExceptionEnum.LOGIN_ACCOUNT_FORBID);
+            throw new CrmException(CrmExceptionEnum.ACTIVITY_DELETE_REMARK);
         }
     }
 }
