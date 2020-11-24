@@ -33,12 +33,14 @@ public class ClueRemarkServiceImpl implements ClueRemarkService {
     }
 
     @Override
-    public void insertClueRemark(ClueRemark clueRemark) {
-        clueRemark.setId(UUIDUtil.getUUID());
+    public String insertClueRemark(ClueRemark clueRemark) {
+        String uuid = UUIDUtil.getUUID();
+        clueRemark.setId(uuid);
         clueRemark.setCreateTime(DateTimeUtil.getSysTime());
         int i = clueRemarkMapper.insert(clueRemark);
         if (i==0){
             throw new CrmException(CrmExceptionEnum.CLUEREMARK_UPDATE);
         }
+        return uuid;
     }
 }

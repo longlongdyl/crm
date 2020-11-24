@@ -20,4 +20,7 @@ public interface ClueService {
     List<Map<String, String>> queryActivity(ClueQueryVo clueQueryVo);
 
     Clue clueRemark(String id);
+
+    void deleteActivity(String id);
+
 }

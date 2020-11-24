@@ -8,6 +8,7 @@ import com.sh2004.bean.User;
 import com.sh2004.service.ClueRemarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -45,14 +46,15 @@ public class ClueRemarkController {
 
     @RequestMapping("/workbench/clue/addClueRemark")
     @ResponseBody
-    public ResultVo addClueRemark(ClueRemark clueRemark, HttpSession session){
+    public ResultVo addClueRemark(ClueRemark clueRemark, HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
         clueRemark.setCreateBy(user.getName());
         ResultVo resultVo = new ResultVo();
         try{
-            clueRemarkService.insertClueRemark(clueRemark);
+            String newId = clueRemarkService.insertClueRemark(clueRemark);
+
             resultVo.setOk(true);
-            resultVo.setMessage("添加线索备注成功");
+            resultVo.setMessage("添加线索备注成功"+","+newId);
         }catch (CrmException e){
             resultVo.setOk(false);
             resultVo.setMessage(e.getMessage());

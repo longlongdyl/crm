@@ -3,10 +3,9 @@ package com.sh2004.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sh2004.base.bean.PaginationVo;
-import com.sh2004.bean.Activity;
-import com.sh2004.bean.ActivityQueryVo;
-import com.sh2004.bean.Clue;
-import com.sh2004.bean.ClueQueryVo;
+import com.sh2004.base.bean.ResultVo;
+import com.sh2004.base.exception.CrmException;
+import com.sh2004.bean.*;
 import com.sh2004.service.ClueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,4 +51,25 @@ public class ClueController {
     }
 
 
+    @RequestMapping("/workbench/clue/deleteActivity")
+    @ResponseBody
+    public ResultVo deleteActivity(String id){
+        ResultVo resultVo = new ResultVo();
+        try{
+            clueService.deleteActivity(id);
+            resultVo.setOk(true);
+            resultVo.setMessage("删除市场关联成功");
+        }catch (CrmException e){
+            resultVo.setOk(false);
+            resultVo.setMessage(e.getMessage());
+        }
+        return resultVo;
+    }
+
+    @RequestMapping("/workbench/clue/convert")
+    public String convert(String clueId,Model model){
+        Clue clue = clueService.clueRemark(clueId);
+        model.addAttribute("clue",clue);
+        return "/workbench/clue/convert";
+    }
 }
