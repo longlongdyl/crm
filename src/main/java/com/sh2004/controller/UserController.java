@@ -50,6 +50,8 @@ public class UserController {
     @RequestMapping("/workbench/activity/queryAllUser")
     @ResponseBody
     public List<User>  queryAllUser(){
-        return userService.queryAllUser();
+
+        List<User> users = userService.queryAllUser();
+        return users;
     }
 }

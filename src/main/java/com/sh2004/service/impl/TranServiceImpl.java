@@ -177,7 +177,7 @@ public class TranServiceImpl implements TranService {
     }
 
     @Override
-    public void updateTran(Tran tran) {
+    public void insertTran(Tran tran) {
         tran.setId(UUIDUtil.getUUID());
         Example example = new Example(Customer.class);
         example.createCriteria().andEqualTo("name",tran.getCustomerId());
@@ -236,6 +236,53 @@ public class TranServiceImpl implements TranService {
         example.createCriteria().andEqualTo("tranId",id);
         List<TranRemark> tranRemarks = tranRemarkMapper.selectByExample(example);
         tran.setTranRemarkList(tranRemarks);
+        tran.setActivityId(activityMapper.selectByPrimaryKey(tran.getActivityId()).getName());
+        tran.setCustomerId(customerMapper.selectByPrimaryKey(tran.getCustomerId()).getName());
+        tran.setContactsId(contactsMapper.selectByPrimaryKey(tran.getContactsId()).getFullname());
+        tran.setOwner(userMapper.selectByPrimaryKey(tran.getOwner()).getName());
         return tran;
+    }
+
+    @Override
+    public void updateTran(Tran tran) {
+        Tran oldTran = tranMapper.selectByPrimaryKey(tran.getId());
+        TranHistory tranHistory = new TranHistory();
+        tranHistory.setId(UUIDUtil.getUUID());
+        tranHistory.setStage(oldTran.getStage());
+        tranHistory.setMoney(oldTran.getMoney());
+        tranHistory.setTranId(oldTran.getId());
+        tranHistory.setCreateBy(tran.getEditBy());
+        tranHistory.setCreateTime(DateTimeUtil.getSysTime());
+        tranHistory.setExpectedDate(tran.getExpectedDate());
+        tranHistoryMapper.insertSelective(tranHistory);
+
+        Example example = new Example(Customer.class);
+        example.createCriteria().andEqualTo("name",tran.getCustomerId());
+        List<Customer> customers = customerMapper.selectByExample(example);
+        if (customers.size() == 1){
+            for (Customer customer : customers) {
+                tran.setCustomerId(customer.getId());
+            }
+        }
+
+
+        example = new Example(Contacts.class);
+        example.createCriteria().andEqualTo("fullname",tran.getContactsId());
+        List<Contacts> contacts = contactsMapper.selectByExample(example);
+        if (contacts.size() == 1){
+            for (Contacts contact : contacts) {
+                tran.setContactsId(contact.getId());
+            }
+        }
+        example = new Example(Activity.class);
+        example.createCriteria().andEqualTo("name",tran.getActivityId());
+        List<Activity> activities = activityMapper.selectByExample(example);
+        if (activities.size() == 1){
+            for (Activity activitie : activities) {
+                tran.setActivityId(activitie.getId());
+            }
+        }
+        tran.setEditTime(DateTimeUtil.getSysTime());
+        tranMapper.updateByPrimaryKeySelective(tran);
     }
 }

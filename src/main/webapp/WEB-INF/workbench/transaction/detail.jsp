@@ -110,7 +110,7 @@
 			<h3>${tran.name}<small>${tran.money}</small></h3>
 		</div>
 		<div style="position: relative; height: 50px; width: 250px;  top: -72px; left: 700px;">
-			<button type="button" class="btn btn-default" onclick="window.location.href='edit.html';"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+			<button type="button" class="btn btn-default" onclick="window.location.href='/crm/workbench/transaction/queryTranById?id='+'${tran.id}'+'&edit=1';"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
 			<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 		</div>
 	</div>
@@ -168,7 +168,13 @@
 			<div style="width: 300px; color: gray;">类型</div>
 			<div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>${tran.type}</b></div>
 			<div style="width: 300px;position: relative; left: 450px; top: -40px; color: gray;">可能性</div>
-			<div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>90</b></div>
+			<div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>
+				<c:forEach items="${StageMap}" var="possibility">
+					<c:if test="${possibility.key == tran.stage}">
+						${possibility.value}
+					</c:if>
+				</c:forEach>
+			</b></div>
 			<div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px;"></div>
 			<div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px; left: 450px;"></div>
 		</div>
@@ -288,7 +294,11 @@
 						<tr style="color: #3278b3;">
 							<td>${historyList.stage}</td>
 							<td>${historyList.money}</td>
-							<td>10%</td>
+							<c:forEach items="${StageMap}" var="possibility">
+								<c:if test="${possibility.key == historyList.stage}">
+								<td>${possibility.value}</td>
+								</c:if>
+							</c:forEach>
 							<td>${historyList.expectedDate}</td>
 							<td>${historyList.createTime}</td>
 							<td>${historyList.createBy}</td>

@@ -22,9 +22,11 @@ public interface TranService {
 
     List<String> queryCustomerName(String customerName);
 
-    void updateTran(Tran tran);
+    void insertTran(Tran tran);
 
     List<Map<String, String>> queryTran(TranQueryVo tranQueryVo);
 
     Tran queryTranById(String id);
+
+    void updateTran(Tran tran);
 }
