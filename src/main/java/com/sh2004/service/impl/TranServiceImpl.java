@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: dylcrm
@@ -25,6 +27,8 @@ import java.util.List;
  */
 @Service("tranService")
 public class TranServiceImpl implements TranService {
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private TranMapper tranMapper;
     @Autowired
@@ -75,6 +79,8 @@ public class TranServiceImpl implements TranService {
         customer.setPhone(clue.getPhone());
         customer.setWebsite(clue.getWebsite());
         int insert = customerMapper.insert(customer);
+        System.out.println("增加" + customer);
+
         contacts.setId(UUIDUtil.getUUID());
         contacts.setOwner(activity.getOwner());
         contacts.setSource(clue.getSource());
@@ -91,6 +97,7 @@ public class TranServiceImpl implements TranService {
         contacts.setNextContactTime(clue.getNextContactTime());
         contacts.setAddress(clue.getAddress());
         int insert1 = contactsMapper.insert(contacts);
+        System.out.println("增加" + contacts);
         List<ClueRemark> clueRemarks = clue.getClueRemarks();
 
         for (ClueRemark clueRemark : clueRemarks) {
@@ -107,11 +114,14 @@ public class TranServiceImpl implements TranService {
             customerRemark.setCustomerId(customer.getId());
             contactsRemark.setContactsId(contacts.getId());
             contactsRemarkMapper.insert(contactsRemark);
+            System.out.println("增加" + contactsRemark);
             customerRemarkMapper.insert(customerRemark);
+            System.out.println("增加" + customerRemark);
         }
 
         tran.setId(UUIDUtil.getUUID());
         tranMapper.insert(tran);
+        System.out.println("增加" + tran);
         TranHistory tranHistory = new TranHistory();
         tranHistory.setId(UUIDUtil.getUUID());
         tranHistory.setCreateBy(user.getName());
@@ -121,18 +131,20 @@ public class TranServiceImpl implements TranService {
         tranHistory.setTranId(tran.getId());
         tranHistory.setExpectedDate(tran.getExpectedDate());
         tranHistoryMapper.insert(tranHistory);
-
+        System.out.println("增加" + tranHistory);
         TranRemark tranRemark = new TranRemark();
         tranRemark.setId(UUIDUtil.getUUID());
         tranRemark.setCreateTime(DateTimeUtil.getSysTime());
         tranRemark.setCreateBy(user.getName());
         tranRemark.setTranId(tran.getId());
         tranRemarkMapper.insert(tranRemark);
+        System.out.println("增加" + tranRemark);
 
 
         List<ClueRemark> clueRemarks2 = clue.getClueRemarks();
         for (ClueRemark clueRemark : clueRemarks2) {
             clueRemarkMapper.delete(clueRemark);
+            System.out.println("删除" + clueRemark);
         }
         Example example1 = new Example(ClueActivityRelation.class);
         example1.createCriteria().andEqualTo("clueId", clue.getId());
@@ -142,9 +154,88 @@ public class TranServiceImpl implements TranService {
             contactsActivityRelation.setActivityId(clueActivityRelation.getActivityId());
             contactsActivityRelation.setContactsId(contacts.getId());
             contactsActivityRelationMapper.insert(contactsActivityRelation);
+            System.out.println("增加" + contactsActivityRelation);
             clueActivityRelationMapper.delete(clueActivityRelation);
+            System.out.println("删除" + clueActivityRelation);
         }
 
         clueMapper.deleteByPrimaryKey(clue.getId());
+        System.out.println("删除" + clue);
+    }
+
+    @Override
+    public List<String> queryCustomerName(String customerName) {
+        Example example = new Example(Customer.class);
+        example.createCriteria().andLike("name",customerName +"%");
+        List<String> list = new ArrayList<>();
+        List<Customer> customers = customerMapper.selectByExample(example);
+        for (Customer customer : customers) {
+            String name = customer.getName();
+            list.add(name);
+        }
+        return list;
+    }
+
+    @Override
+    public void updateTran(Tran tran) {
+        tran.setId(UUIDUtil.getUUID());
+        Example example = new Example(Customer.class);
+        example.createCriteria().andEqualTo("name",tran.getCustomerId());
+        List<Customer> customers = customerMapper.selectByExample(example);
+        if (customers.size()>0){
+            for (Customer customer : customers) {
+                tran.setCustomerId(customer.getId());
+            }
+        }else {
+            Customer customer = new Customer();
+            customer.setId(UUIDUtil.getUUID());
+            customer.setOwner(tran.getOwner());
+            customer.setName(tran.getCustomerId());
+            tran.setCustomerId(customer.getId());
+            customerMapper.insert(customer);
+        }
+
+        tranMapper.insertSelective(tran);
+    }
+
+    @Override
+    public List<Map<String, String>> queryTran(TranQueryVo tranQueryVo) {
+        List<Map<String, String>> list = tranMapper.queryTran(tranQueryVo);
+        for (Map<String, String> tran : list) {
+            if (null != tran.get("owner")){
+                String owner = tran.get("owner");
+                User user = new User();
+                user.setId(owner);
+                tran.put("owner",userMapper.selectOne(user).getName());
+            }
+            if (null != tran.get("customerId")){
+                String customerId = tran.get("customerId");
+                Customer customer = new Customer();
+                customer.setId(customerId);
+                tran.put("customerId",customerMapper.selectOne(customer).getName());
+            }
+            if (null != tran.get("contactsId")){
+                String contactsId = tran.get("contactsId");
+                Contacts contacts = new Contacts();
+                contacts.setId(contactsId);
+                tran.put("contactsId",contactsMapper.selectOne(contacts).getFullname());
+            }
+
+        }
+        return list;
+    }
+
+    @Override
+    public Tran queryTranById(String id) {
+        Tran tran = tranMapper.selectByPrimaryKey(id);
+        Example example = new Example(TranHistory.class);
+        example.createCriteria().andEqualTo("tranId",id);
+        List<TranHistory> tranHistories = tranHistoryMapper.selectByExample(example);
+        tran.setHistoryList(tranHistories);
+        example = new Example(TranRemark.class);
+        example.createCriteria().andEqualTo("tranId",id);
+        List<TranRemark> tranRemarks = tranRemarkMapper.selectByExample(example);
+        tran.setTranRemarkList(tranRemarks);
+        return tran;
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import javax.servlet.ServletContext;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ProjectName: dylcrm
@@ -35,5 +35,15 @@ public class CrmCaChe {
     public CrmCaChe(ServletContext servletContext, CaCheService caCheService) {
         List<CaChe> caChes = caCheService.queryAll();
         servletContext.setAttribute("caChes",caChes);
+        ResourceBundle bundle =
+                ResourceBundle.getBundle("properties.Stage2Possibility");
+        Enumeration<String> keys = bundle.getKeys();
+        Map<String,String> map = new HashMap<>();
+        while (keys.hasMoreElements()){
+            String key = keys.nextElement();
+            String value = bundle.getString(key);
+            map.put(key,value);
+        }
+        servletContext.setAttribute("StageMap",map);
     }
 }

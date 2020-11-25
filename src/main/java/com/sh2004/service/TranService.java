@@ -1,7 +1,11 @@
 package com.sh2004.service;
 
 import com.sh2004.bean.Tran;
+import com.sh2004.bean.TranQueryVo;
 import com.sh2004.bean.User;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: dylcrm
@@ -15,4 +19,12 @@ import com.sh2004.bean.User;
  */
 public interface TranService {
     void addTran(Tran tran, User user);
+
+    List<String> queryCustomerName(String customerName);
+
+    void updateTran(Tran tran);
+
+    List<Map<String, String>> queryTran(TranQueryVo tranQueryVo);
+
+    Tran queryTranById(String id);
 }

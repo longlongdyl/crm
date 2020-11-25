@@ -12,6 +12,7 @@ import com.sh2004.mapper.UserMapper;
 import com.sh2004.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Map;
@@ -92,6 +93,14 @@ public class ActivityServiceImpl implements ActivityService {
         List<ActivityRemark> list = activityRemarkMapper.queryByActivityId(id);
         activity.setActivityRemark(list);
         return  activity;
+    }
+
+    @Override
+    public List<Activity> queryActivityByName(String name) {
+        Example example = new Example(Activity.class);
+        example.createCriteria().andLike("name","%" + name +"%");
+        List<Activity> activities = activityMapper.selectByExample(example);
+        return activities;
     }
 
 }

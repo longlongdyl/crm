@@ -5,6 +5,7 @@ import tk.mybatis.mapper.code.Style;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * @ProjectName: dylcrm
@@ -39,6 +40,8 @@ public class Tran {
     private String contactSummary;
     private String nextContactTime;
 
+    private List<TranHistory> historyList;
+
     @Override
     public String toString() {
         return "Tran{" +
@@ -60,8 +63,28 @@ public class Tran {
                 ", description='" + description + '\'' +
                 ", contactSummary='" + contactSummary + '\'' +
                 ", nextContactTime='" + nextContactTime + '\'' +
+                ", historyList=" + historyList +
+                ", tranRemarkList=" + tranRemarkList +
                 '}';
     }
+
+    public List<TranHistory> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<TranHistory> historyList) {
+        this.historyList = historyList;
+    }
+
+    public List<TranRemark> getTranRemarkList() {
+        return tranRemarkList;
+    }
+
+    public void setTranRemarkList(List<TranRemark> tranRemarkList) {
+        this.tranRemarkList = tranRemarkList;
+    }
+
+    private List<TranRemark> tranRemarkList;
 
     public String getId() {
         return id;

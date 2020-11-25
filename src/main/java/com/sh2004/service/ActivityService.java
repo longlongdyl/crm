@@ -28,4 +28,6 @@ public interface ActivityService {
     void deleteActivity(String ids);
 
     Activity activityRemark(String id);
+
+    List<Activity> queryActivityByName(String name);
 }

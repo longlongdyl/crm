@@ -114,4 +114,10 @@ public class ActivityController {
         model.addAttribute("activity",activity);
         return "forward:/toView/workbench/activity/detail";
     }
+
+    @RequestMapping("/workbench/activity/queryActivityByName")
+    @ResponseBody
+    public List<Activity> queryActivityByName(String name){
+        return activityService.queryActivityByName(name);
+    }
 }
