@@ -211,7 +211,7 @@
 <div style="position: relative; top: 0px;">
     <div style="position: relative; left: 40px; height: 30px;">
         <div style="width: 300px; color: gray;">所有者</div>
-        <div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>${tran.owner}</b></div>
+        <div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>${tran.tranQueryVo.ownerName}</b></div>
         <div style="width: 300px;position: relative; left: 450px; top: -40px; color: gray;">金额</div>
         <div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>${tran.money}</b></div>
         <div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px;"></div>
@@ -227,7 +227,7 @@
     </div>
     <div style="position: relative; left: 40px; height: 30px; top: 20px;">
         <div style="width: 300px; color: gray;">客户名称</div>
-        <div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>${tran.customerId}</b></div>
+        <div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>${tran.tranQueryVo.customerName}</b></div>
         <div style="width: 300px;position: relative; left: 450px; top: -40px; color: gray;">阶段</div>
         <div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>${tran.stage}</b></div>
         <div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px;"></div>
@@ -251,13 +251,13 @@
         <div style="width: 300px; color: gray;">来源</div>
         <div style="width: 300px;position: relative; left: 200px; top: -20px;"><b>${tran.source}</b></div>
         <div style="width: 300px;position: relative; left: 450px; top: -40px; color: gray;">市场活动源</div>
-        <div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>${tran.activityId}</b></div>
+        <div style="width: 300px;position: relative; left: 650px; top: -60px;"><b>${tran.tranQueryVo.activityName}</b></div>
         <div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px;"></div>
         <div style="height: 1px; width: 400px; background: #D5D5D5; position: relative; top: -60px; left: 450px;"></div>
     </div>
     <div style="position: relative; left: 40px; height: 30px; top: 50px;">
         <div style="width: 300px; color: gray;">联系人名称</div>
-        <div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>${tran.contactsId}</b></div>
+        <div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>${tran.tranQueryVo.contactsFullName}</b></div>
         <div style="height: 1px; width: 550px; background: #D5D5D5; position: relative; top: -20px;"></div>
     </div>
     <div style="position: relative; left: 40px; height: 30px; top: 60px;">

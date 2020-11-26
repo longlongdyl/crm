@@ -234,10 +234,12 @@ public class TranServiceImpl implements TranService {
         example.createCriteria().andEqualTo("tranId",id);
         List<TranRemark> tranRemarks = tranRemarkMapper.selectByExample(example);
         tran.setTranRemarkList(tranRemarks);
-        tran.setActivityId(activityMapper.selectByPrimaryKey(tran.getActivityId()).getName());
-        tran.setCustomerId(customerMapper.selectByPrimaryKey(tran.getCustomerId()).getName());
-        tran.setContactsId(contactsMapper.selectByPrimaryKey(tran.getContactsId()).getFullname());
-        tran.setOwner(userMapper.selectByPrimaryKey(tran.getOwner()).getName());
+        TranQueryVo tranQueryVo = new TranQueryVo();
+        tranQueryVo.setActivityName(activityMapper.selectByPrimaryKey(tran.getActivityId()).getName());
+        tranQueryVo.setCustomerName(customerMapper.selectByPrimaryKey(tran.getCustomerId()).getName());
+        tranQueryVo.setContactsFullName(contactsMapper.selectByPrimaryKey(tran.getContactsId()).getFullname());
+        tranQueryVo.setOwnerName(userMapper.selectByPrimaryKey(tran.getOwner()).getName());
+        tran.setTranQueryVo(tranQueryVo);
         return tran;
     }
 
@@ -253,33 +255,6 @@ public class TranServiceImpl implements TranService {
         tranHistory.setCreateTime(DateTimeUtil.getSysTime());
         tranHistory.setExpectedDate(oldTran.getExpectedDate());
         tranHistoryMapper.insertSelective(tranHistory);
-
-        Example example = new Example(Customer.class);
-        example.createCriteria().andEqualTo("name",tran.getCustomerId());
-        List<Customer> customers = customerMapper.selectByExample(example);
-        if (customers.size() == 1){
-            for (Customer customer : customers) {
-                tran.setCustomerId(customer.getId());
-            }
-        }
-
-
-        example = new Example(Contacts.class);
-        example.createCriteria().andEqualTo("fullname",tran.getContactsId());
-        List<Contacts> contacts = contactsMapper.selectByExample(example);
-        if (contacts.size() == 1){
-            for (Contacts contact : contacts) {
-                tran.setContactsId(contact.getId());
-            }
-        }
-        example = new Example(Activity.class);
-        example.createCriteria().andEqualTo("name",tran.getActivityId());
-        List<Activity> activities = activityMapper.selectByExample(example);
-        if (activities.size() == 1){
-            for (Activity activitie : activities) {
-                tran.setActivityId(activitie.getId());
-            }
-        }
         tran.setEditTime(DateTimeUtil.getSysTime());
         tranMapper.updateByPrimaryKeySelective(tran);
     }

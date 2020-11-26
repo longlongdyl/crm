@@ -152,6 +152,9 @@
 				  <c:forEach items="${caChes}" var="caChe">
 					  <c:if test="${caChe.code == 'stage'}">
 						  <c:forEach items="${caChe.caCheValueList}" var="caCheValue">
+							  <c:if test="${caCheValue.value == tran.stage}">
+								  <option selected>${caCheValue.value}</option>>
+							  </c:if>
 							  <option>${caCheValue.value}</option>>
 						  </c:forEach>
 					  </c:if>

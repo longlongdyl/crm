@@ -40,7 +40,9 @@ public class Tran {
     private String contactSummary;
     private String nextContactTime;
 
+    private TranQueryVo tranQueryVo;
     private List<TranHistory> historyList;
+
 
     @Override
     public String toString() {
@@ -63,9 +65,18 @@ public class Tran {
                 ", description='" + description + '\'' +
                 ", contactSummary='" + contactSummary + '\'' +
                 ", nextContactTime='" + nextContactTime + '\'' +
+                ", tranQueryVo=" + tranQueryVo +
                 ", historyList=" + historyList +
                 ", tranRemarkList=" + tranRemarkList +
                 '}';
+    }
+
+    public TranQueryVo getTranQueryVo() {
+        return tranQueryVo;
+    }
+
+    public void setTranQueryVo(TranQueryVo tranQueryVo) {
+        this.tranQueryVo = tranQueryVo;
     }
 
     public List<TranHistory> getHistoryList() {

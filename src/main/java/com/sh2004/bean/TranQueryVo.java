@@ -16,15 +16,55 @@ public class TranQueryVo {
     private String owner;
     private String startTime;
     private String endTime;
+    private String ownerName;
+    private String activityName;
+    private String contactsFullName;
+    private String customerName;
 
     @Override
     public String toString() {
-        return "ActivityQueryVo{" +
+        return "TranQueryVo{" +
                 "name='" + name + '\'' +
                 ", owner='" + owner + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", activityName='" + activityName + '\'' +
+                ", contactsFullName='" + contactsFullName + '\'' +
+                ", customerName='" + customerName + '\'' +
                 '}';
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
+    }
+
+    public String getContactsFullName() {
+        return contactsFullName;
+    }
+
+    public void setContactsFullName(String contactsFullName) {
+        this.contactsFullName = contactsFullName;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getName() {

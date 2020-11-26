@@ -106,7 +106,7 @@
 		<div class="form-group">
 			<label for="edit-transactionOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<select class="form-control" id="edit-transactionOwner" name="owner">
+				<select class="form-control" id="edit-transactionOwner" name="owner" >
 
 				</select>
 			</div>
@@ -131,7 +131,7 @@
 		<div class="form-group">
 			<label for="edit-accountName" class="col-sm-2 control-label">客户名称<span style="font-size: 15px; color: red;">*</span></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="edit-accountName" value="${tran.customerId}" placeholder="支持自动补全，输入客户不存在则新建">
+				<input type="text" class="form-control" id="edit-accountName" value="${tran.tranQueryVo.contactsFullName}" placeholder="支持自动补全，输入客户不存在则新建">
 				<input  name="customerId" value="${tran.customerId}" type="hidden" />
 			</div>
 			<label for="edit-transactionStage" class="col-sm-2 control-label">阶段<span style="font-size: 15px; color: red;">*</span></label>
@@ -140,7 +140,12 @@
 				  <c:forEach items="${caChes}" var="caChe">
 					  <c:if test="${caChe.code == 'stage'}">
 						  <c:forEach items="${caChe.caCheValueList}" var="caCheValue">
-							  <option>${caCheValue.value}</option>>
+							  <c:if test="${caCheValue.value == tran.stage}">
+								  <option selected>${caCheValue.value}</option>>
+							  </c:if>
+							  <c:if test="${caCheValue.value != tran.stage}">
+								  <option>${caCheValue.value}</option>>
+							  </c:if>
 						  </c:forEach>
 					  </c:if>
 				  </c:forEach>
@@ -155,7 +160,12 @@
 					<c:forEach items="${caChes}" var="caChe">
 						<c:if test="${caChe.code == 'transactionType'}">
 							<c:forEach items="${caChe.caCheValueList}" var="caCheValue">
-								<option>${caCheValue.value}</option>>
+								<c:if test="${caCheValue.value == tran.type}">
+									<option selected>${caCheValue.value}</option>>
+								</c:if>
+								<c:if test="${caCheValue.value != tran.type}">
+									<option>${caCheValue.value}</option>>
+								</c:if>
 							</c:forEach>
 						</c:if>
 					</c:forEach>
@@ -174,7 +184,12 @@
 					<c:forEach items="${caChes}" var="caChe">
 						<c:if test="${caChe.code == 'source'}">
 							<c:forEach items="${caChe.caCheValueList}" var="caCheValue">
-								<option>${caCheValue.value}</option>>
+								<c:if test="${caCheValue.value == tran.source}">
+									<option selected>${caCheValue.value}</option>>
+								</c:if>
+								<c:if test="${caCheValue.value != tran.source}">
+									<option>${caCheValue.value}</option>>
+								</c:if>
 							</c:forEach>
 						</c:if>
 					</c:forEach>
@@ -182,7 +197,7 @@
 			</div>
 			<label for="edit-activitySrc" class="col-sm-2 control-label">市场活动源&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-target="#findMarketActivity"><span class="glyphicon glyphicon-search"></span></a></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input  type="text" class="form-control" id="edit-activitySrc" value="${tran.activityId}">
+				<input  type="text" class="form-control" id="edit-activitySrc" value="${tran.tranQueryVo.activityName}">
 				<input type="hidden" name="activityId"  id="acid" value="${tran.activityId}">
 			</div>
 		</div>
@@ -190,7 +205,7 @@
 		<div class="form-group">
 			<label for="edit-contactsName" class="col-sm-2 control-label">联系人名称&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-target="#findContacts"><span class="glyphicon glyphicon-search"></span></a></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="edit-contactsName" value="${tran.contactsId}">
+				<input type="text" class="form-control" id="edit-contactsName" value="${tran.tranQueryVo.contactsFullName}">
 				<input type="hidden" name="contactsId"  id="contactsId" value="${tran.contactsId}">
 			</div>
 		</div>
@@ -244,14 +259,27 @@
 			success : function (data) {
 				$('#edit-transactionOwner').html("");
 				for (var i = 0; i <data.length ; i++) {
-					$('#edit-transactionOwner').append("<option value="+data[i].id+">"+data[i].name+"</option>");
+					if (data[i].id == '${tran.owner}') {
+						$('#edit-transactionOwner').append("<option selected value="+data[i].id+">"+data[i].name+"</option>");
+					}else{
+						$('#edit-transactionOwner').append("<option value="+data[i].id+">"+data[i].name+"</option>");
+					}
 
 				}
 			}
 		});
-
-
-
+		//页面进入时候刷新进度
+		$.ajax({
+			url : '/crm/workbench/tran/queryPossibilityByStage',
+			data : {
+				"stage" : '${tran.stage}'
+			},
+			type : 'get',
+			dataType : 'json',
+			success : function(data){
+				$('#edit-possibility').val(data);
+			}
+		});
 
 	$('#edit-transactionStage').change(function () {
 		$.ajax({
