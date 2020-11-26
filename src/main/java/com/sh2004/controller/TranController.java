@@ -64,12 +64,14 @@ public class TranController {
     }
 
     @RequestMapping("/workbench/transaction/updateTran")
-    public String updateTran(Tran tran,HttpSession session){
+    public String updateTran(Tran tran,HttpSession session,Model model){
         if (null != tran.getId()){
             User user = (User) session.getAttribute(CrmConstants.LOGIN_USER);
             tran.setEditBy(user.getName());
             tranService.updateTran(tran);
-            return "forward:/toView/workbench/transaction/index";
+            Tran tran2 = tranService.queryTranById(tran.getId());
+            model.addAttribute("tran",tran2);
+            return "forward:/toView/workbench/transaction/detail";
         }
         User user = (User) session.getAttribute(CrmConstants.LOGIN_USER);
         tran.setCreateBy(user.getName());
@@ -99,4 +101,7 @@ public class TranController {
         }
         return "forward:/toView/workbench/transaction/edit";
     }
+
+
+
 }

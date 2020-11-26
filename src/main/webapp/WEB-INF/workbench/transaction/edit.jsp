@@ -136,7 +136,7 @@
 			</div>
 			<label for="edit-transactionStage" class="col-sm-2 control-label">阶段<span style="font-size: 15px; color: red;">*</span></label>
 			<div class="col-sm-10" style="width: 300px;">
-			  <select class="form-control" id="edit-transactionStage" name="stage">
+			  <select class="form-control" id="edit-transactionStage" name="stage" >
 				  <c:forEach items="${caChes}" var="caChe">
 					  <c:if test="${caChe.code == 'stage'}">
 						  <c:forEach items="${caChe.caCheValueList}" var="caCheValue">
@@ -230,7 +230,8 @@
 			data:tran,
 			type:'post',
 			success :function (data) {
-				location.href = "/crm/toView/workbench/transaction/detail?id="+tranId;
+			//workbench/transaction/queryTranById	location.href = "/crm/toView/workbench/transaction/detail?id="+tranId;
+				location.href = "/crm/workbench/transaction/queryTranById?id="+tranId;
 			}
 		})
 	});
@@ -244,6 +245,7 @@
 				$('#edit-transactionOwner').html("");
 				for (var i = 0; i <data.length ; i++) {
 					$('#edit-transactionOwner').append("<option value="+data[i].id+">"+data[i].name+"</option>");
+
 				}
 			}
 		});

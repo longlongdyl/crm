@@ -1922,7 +1922,7 @@
     <column id="443" parent="231" name="id">
       <Position>1</Position>
       <Comment>uuid&#xd;
-            </Comment>
+</Comment>
       <DataType>char(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>

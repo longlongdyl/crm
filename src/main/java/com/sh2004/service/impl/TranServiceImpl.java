@@ -228,11 +228,9 @@ public class TranServiceImpl implements TranService {
     @Override
     public Tran queryTranById(String id) {
         Tran tran = tranMapper.selectByPrimaryKey(id);
-        Example example = new Example(TranHistory.class);
-        example.createCriteria().andEqualTo("tranId",id);
-        List<TranHistory> tranHistories = tranHistoryMapper.selectByExample(example);
+        List<TranHistory> tranHistories = tranHistoryMapper.queryTranHistoriesByTranId(id);
         tran.setHistoryList(tranHistories);
-        example = new Example(TranRemark.class);
+        Example example = new Example(TranRemark.class);
         example.createCriteria().andEqualTo("tranId",id);
         List<TranRemark> tranRemarks = tranRemarkMapper.selectByExample(example);
         tran.setTranRemarkList(tranRemarks);
@@ -253,7 +251,7 @@ public class TranServiceImpl implements TranService {
         tranHistory.setTranId(oldTran.getId());
         tranHistory.setCreateBy(tran.getEditBy());
         tranHistory.setCreateTime(DateTimeUtil.getSysTime());
-        tranHistory.setExpectedDate(tran.getExpectedDate());
+        tranHistory.setExpectedDate(oldTran.getExpectedDate());
         tranHistoryMapper.insertSelective(tranHistory);
 
         Example example = new Example(Customer.class);

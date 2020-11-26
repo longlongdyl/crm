@@ -3,6 +3,8 @@ package com.sh2004.mapper;
 import com.sh2004.bean.TranHistory;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
+
 /**
  * @ProjectName: dylcrm
  * @Package: com.sh2004.mapper
@@ -14,4 +16,5 @@ import tk.mybatis.mapper.common.Mapper;
  * Copyright: Copyright (c) 2020
  */
 public interface TranHistoryMapper extends Mapper<TranHistory> {
+    List<TranHistory> queryTranHistoriesByTranId(String id);
 }
