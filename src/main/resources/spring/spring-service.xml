@@ -20,8 +20,19 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <aop:config>
+    <bean id="aspect" class="com.sh2004.base.controller.LoginRight" />
+    <!--<aop:config>
+        <aop:pointcut id="pointcut2"
+                      expression="execution(*
+        com.sh2004.service.*.*(..))"/>
+        <aop:aspect ref="aspect">
+            <aop:before method="sout" pointcut-ref="pointcut2"/>
+        </aop:aspect>
+    </aop:config>-->
+    <aop:aspectj-autoproxy />
 
+
+    <aop:config>
         <aop:pointcut id="pointcut" expression="execution(*
         com.sh2004.service.*.*(..))" />
 

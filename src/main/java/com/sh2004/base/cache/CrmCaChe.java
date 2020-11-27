@@ -13,7 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -32,7 +35,11 @@ public class CrmCaChe {
     @Autowired
     private CaCheService caCheService;
 
-    public CrmCaChe(ServletContext servletContext, CaCheService caCheService) {
+    @Autowired
+    private ServletContext servletContext;
+
+    @PostConstruct
+    public void crmCaChe() {
         List<CaChe> caChes = caCheService.queryAll();
         servletContext.setAttribute("caChes",caChes);
         ResourceBundle bundle =
@@ -46,4 +53,5 @@ public class CrmCaChe {
         }
         servletContext.setAttribute("StageMap",map);
     }
+
 }

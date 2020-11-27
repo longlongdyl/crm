@@ -125,7 +125,7 @@
 </div>
 
 <!-- 阶段状态 -->
-<div style="position: relative; left: 40px; top: -50px;">
+<div style="position: relative; left: 40px; top: -50px;" id="append">
     阶段&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <c:forEach items="${caChes}" var="caChe">
         <c:if test="${caChe.code == 'stage'}">
@@ -204,9 +204,9 @@
             </c:forEach>
         </c:if>
     </c:forEach>
-    <span class="closingDate">${tran.expectedDate}</span>
-</div>
 
+<span class="closingDate">${tran.expectedDate}</span>
+</div>
 <!-- 详细信息 -->
 <div style="position: relative; top: 0px;">
     <div style="position: relative; left: 40px; height: 30px;">
@@ -398,6 +398,7 @@
 </html>
 
             <script>
+
                 function changeStage(momo) {
                   var id ='${tran.id}';
                   location.href ="/crm/workbench/transaction/updateTran?stage="+momo+"&id="+id;
