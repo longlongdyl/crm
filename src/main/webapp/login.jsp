@@ -9,14 +9,15 @@
 </head>
 
 <body>
-	<div style="position: absolute; top: 0px; left: 0px; width: 60%;">
+	<%--<div style="position: absolute; top: 0px; left: 0px; width: 60%;">
 		<img src="/crm/image/IMG_7114.JPG" alt="这个首页图片" title="我是图片" style="width: 100%;  position: relative; top: 50px;">
 	</div>
 	<div id="top" style="height: 50px; background-color: #3C3C3C; width: 100%;">
 		<div style="position: absolute; top: 5px; left: 0px; font-size: 30px; font-weight: 400; color: white; font-family: 'times new roman'">CRM &nbsp;<span style="font-size: 12px;">&copy;2017&nbsp;动力节点</span></div>
-	</div>
-	
-	<div style="position: absolute; top: 120px; right: 100px;width:450px;height:400px;border:1px solid #D5D5D5">
+	</div>--%>
+	<center>
+	<div
+		 >
 		<c:forEach items="${caChes}" var="caChe">
 		<c:if test="${caChe.code == 'stage'}">
 			<c:forEach items="${caChe.caCheValueList}" var="caCheValue">
@@ -25,11 +26,11 @@
 		</c:if>
 		</c:forEach>
 
-		<div style="position: absolute; top: 0px; right: 60px;">
+		<div  >
 			<div class="page-header">
 				<h1>登录</h1>
 			</div>
-			<form action="/crm/settings/user/loginForMain" class="form-horizontal" method="post" role="form">
+			<form action="/crm/settings/user/login" class="form-horizontal" method="post" role="form">
 				<div class="form-group form-group-lg">
 					<div style="width: 350px;">
 						<input class="form-control" type="text" name="loginAct" placeholder="用户名">
@@ -47,5 +48,10 @@
 			</form>
 		</div>
 	</div>
+</center>
 </body>
 </html>
+
+<script>
+	//$('#login').modal('show')
+</script>

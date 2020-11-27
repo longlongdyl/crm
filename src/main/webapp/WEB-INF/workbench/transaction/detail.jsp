@@ -398,7 +398,6 @@
 </html>
 
             <script>
-
                 function changeStage(momo) {
                   var id ='${tran.id}';
                   location.href ="/crm/workbench/transaction/updateTran?stage="+momo+"&id="+id;

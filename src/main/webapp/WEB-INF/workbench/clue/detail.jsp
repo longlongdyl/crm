@@ -441,7 +441,6 @@
             alert(val)
         }
         function updateClueRemark(id) {
-
             $('#editRemarkModal').modal('show');
             $('#noteContent').val($("#" + id).html())
             $('#remarkId').val(id)
@@ -479,19 +478,19 @@
                 dataType: 'json',
                 success: function (data) {
                     var z =data.message;
-                    var x = z.substring(z.indexOf(",")+1,z.length-1);
+                    var x = z.substring(z.indexOf(",")+1,z.length);
                      z = z.substring(0,z.indexOf(","));
                     alert(z);
-
                     $('#div1').prepend("<link href=\"/crm/jquery/bootstrap_3.3.0/css/bootstrap.min.css\" type=\"text/css\" rel=\"stylesheet\" />" +
                         "\t\t\t <div class=\"remarkDiv\" style=\"height: 60px;\">\n" +
                         "\t\t\t\t <img title=\"${clueRemark.createBy}\" src=\"../../image/user-thumbnail.png\" style=\"width: 30px; height:30px;\">\n" +
                         "\n" +
                         "\t\t\t\t <div style=\"position: relative; top: -40px; left: 40px;\" >\n" +
-                        "\t\t\t\t\t <h5 id='zz5'>" + $('#remark').val() + "</h5>\n" +
+                        "\t\t\t\t\t <h5 id="+x+">" + $('#remark').val() + "</h5>\n" +
                         "\t\t\t\t\t <font color=\"gray\">线索</font> <font color=\"gray\">-</font> <b>${clue.fullname}-${clue.company}</b> <small style=\"color: gray;\">" + onedate + "由${newId}${user.name}</small>\n" +
                             "                <div style=\"position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;\">\n" +
-                        " <a class='myHref' href='javascript:void(0);'><span id='xinzengnew'  class='glyphicon glyphicon-edit' style='font-size: 20px; color: #E6E6E6;'></span></a>" +
+                        " <a class='myHref' href='javascript:void(0);'><span id=z"+x+" class='glyphicon glyphicon-edit' style='font-size: 20px; color: #E6E6E6;'" +
+                        "    onclick="+"updateClueRemark('"+x+"') ></span></a>" +
                         "                    &nbsp;&nbsp;&nbsp;&nbsp;\n" +
                         "                    <a class=\"myHref\" href=\"javascript:void(0);\"><span class=\"glyphicon glyphicon-remove\" style=\"font-size: 20px; color: #E6E6E6;\"></span></a>\n" +
                         "                </div>"+
@@ -516,16 +515,9 @@
                         $(".myHref").mouseout(function () {
                             $(this).children("span").css("color", "#E6E6E6");
                         });
-                    })
-                    $('#xinzengnew').click(function () {
+                    });
 
-                        var id = x;
-                        $('#zz5').prop('id',id);
 
-                        $('#editRemarkModal').modal('show');
-                        $('#noteContent').val($("#" + id).html())
-                        $('#remarkId').val(id)
-                    })
                 }
 
             })
