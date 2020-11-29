@@ -436,6 +436,10 @@
             </div>
         </div>
     </div>
+
+
+
+
     <script>
         function queryActivity(val) {
             alert(val)
@@ -462,7 +466,7 @@
                     $("#" + id).html(noteContent);
                 }
             })
-        })
+        });
 
         function addClueRemark() {
             var mydate = new Date();

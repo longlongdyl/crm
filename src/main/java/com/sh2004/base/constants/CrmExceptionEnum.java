@@ -20,7 +20,10 @@ public enum CrmExceptionEnum {
     ACTIVITY_DELETE_REMARK("2","删除备注失败"),
 
     CLUEREMARK_UPDATE("3","修改线索备注失败"),
-    CLUEREMARK_DELETE("3","删除市场关联失败");
+    CLUEREMARK_DELETE("3","删除市场关联失败"),
+
+    CUSTOMER_INSERT("4","添加客户失败");
+
 
 
     private String code;

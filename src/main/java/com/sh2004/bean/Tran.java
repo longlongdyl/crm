@@ -40,62 +40,10 @@ public class Tran {
     private String contactSummary;
     private String nextContactTime;
 
+    private List<TranRemark> tranRemarkList;
     private TranQueryVo tranQueryVo;
     private List<TranHistory> historyList;
 
-
-    @Override
-    public String toString() {
-        return "Tran{" +
-                "id='" + id + '\'' +
-                ", owner='" + owner + '\'' +
-                ", money='" + money + '\'' +
-                ", name='" + name + '\'' +
-                ", expectedDate='" + expectedDate + '\'' +
-                ", customerId='" + customerId + '\'' +
-                ", stage='" + stage + '\'' +
-                ", type='" + type + '\'' +
-                ", source='" + source + '\'' +
-                ", activityId='" + activityId + '\'' +
-                ", contactsId='" + contactsId + '\'' +
-                ", createBy='" + createBy + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", editBy='" + editBy + '\'' +
-                ", editTime='" + editTime + '\'' +
-                ", description='" + description + '\'' +
-                ", contactSummary='" + contactSummary + '\'' +
-                ", nextContactTime='" + nextContactTime + '\'' +
-                ", tranQueryVo=" + tranQueryVo +
-                ", historyList=" + historyList +
-                ", tranRemarkList=" + tranRemarkList +
-                '}';
-    }
-
-    public TranQueryVo getTranQueryVo() {
-        return tranQueryVo;
-    }
-
-    public void setTranQueryVo(TranQueryVo tranQueryVo) {
-        this.tranQueryVo = tranQueryVo;
-    }
-
-    public List<TranHistory> getHistoryList() {
-        return historyList;
-    }
-
-    public void setHistoryList(List<TranHistory> historyList) {
-        this.historyList = historyList;
-    }
-
-    public List<TranRemark> getTranRemarkList() {
-        return tranRemarkList;
-    }
-
-    public void setTranRemarkList(List<TranRemark> tranRemarkList) {
-        this.tranRemarkList = tranRemarkList;
-    }
-
-    private List<TranRemark> tranRemarkList;
 
     public String getId() {
         return id;
@@ -239,5 +187,56 @@ public class Tran {
 
     public void setNextContactTime(String nextContactTime) {
         this.nextContactTime = nextContactTime;
+    }
+
+    public List<TranRemark> getTranRemarkList() {
+        return tranRemarkList;
+    }
+
+    public void setTranRemarkList(List<TranRemark> tranRemarkList) {
+        this.tranRemarkList = tranRemarkList;
+    }
+
+    public TranQueryVo getTranQueryVo() {
+        return tranQueryVo;
+    }
+
+    public void setTranQueryVo(TranQueryVo tranQueryVo) {
+        this.tranQueryVo = tranQueryVo;
+    }
+
+    public List<TranHistory> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<TranHistory> historyList) {
+        this.historyList = historyList;
+    }
+
+    @Override
+    public String toString() {
+        return "Tran{" +
+                "id='" + id + '\'' +
+                ", owner='" + owner + '\'' +
+                ", money='" + money + '\'' +
+                ", name='" + name + '\'' +
+                ", expectedDate='" + expectedDate + '\'' +
+                ", customerId='" + customerId + '\'' +
+                ", stage='" + stage + '\'' +
+                ", type='" + type + '\'' +
+                ", source='" + source + '\'' +
+                ", activityId='" + activityId + '\'' +
+                ", contactsId='" + contactsId + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", editBy='" + editBy + '\'' +
+                ", editTime='" + editTime + '\'' +
+                ", description='" + description + '\'' +
+                ", contactSummary='" + contactSummary + '\'' +
+                ", nextContactTime='" + nextContactTime + '\'' +
+                ", tranQueryVo=" + tranQueryVo +
+                ", historyList=" + historyList +
+                ", tranRemarkList=" + tranRemarkList +
+                '}';
     }
 }

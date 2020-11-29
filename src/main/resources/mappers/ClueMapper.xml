@@ -22,7 +22,9 @@
     </select>
 
 
-
+     <select id="queryClueEcharts" resultType="map">
+      select count(*) value,source name from tbl_clue group by source
+    </select>
 
 
 

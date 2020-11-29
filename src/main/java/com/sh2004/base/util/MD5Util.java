@@ -18,7 +18,9 @@ public class MD5Util {
 				String str = Integer.toHexString(number);
 				if (str.length() == 1) {
 					buffer.append("0");
+		//			System.out.println(buffer+"----------+0");
 				}
+			//	System.out.println(buffer);
 				buffer.append(str);
 			}
 

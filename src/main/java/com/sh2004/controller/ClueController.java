@@ -72,4 +72,12 @@ public class ClueController {
         model.addAttribute("clue",clue);
         return "/workbench/clue/convert";
     }
+
+    @RequestMapping("/workbench/chart/clue/queryClueEcharts")
+    @ResponseBody
+    public List<Map<String, String>> queryClueEcharts(){
+        List<Map<String, String>> list = clueService.queryClueEcharts();
+        return list;
+    }
+
 }

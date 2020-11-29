@@ -1,8 +1,10 @@
 package com.sh2004.mapper;
 
 import com.sh2004.bean.Customer;
+import com.sh2004.bean.CustomerQueryVo;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,4 +18,5 @@ import java.util.Map;
  * Copyright: Copyright (c) 2020
  */
 public interface CustomerMapper extends Mapper<Customer> {
+    List<Map<String, String>> queryCustomer(CustomerQueryVo customerQueryVo);
 }

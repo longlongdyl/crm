@@ -57,16 +57,12 @@ public class UserController {
     }
     @RequestMapping("/settings/user/loginForMain")
     public String loginForMain(User user, HttpSession session, Model model){
-        if (null == user.getLoginAct()){
-            return "../../index";
-        }
         try {
             user = userService.dologin(user);
             session.setAttribute(CrmConstants.LOGIN_USER,user);
         } catch (CrmException e) {
             String mess = e.getMessage();
             model.addAttribute("mess",mess);
-            //转发到登录页面，显示错误信息
             return "../../index";
         }
 

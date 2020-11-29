@@ -5,6 +5,7 @@ import tk.mybatis.mapper.code.Style;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * @ProjectName: crm
@@ -35,6 +36,12 @@ public class Customer {
     private String description;
     private String address;
 
+    private List<CustomerRemark> customerRemarkList;
+
+    public List<CustomerRemark> getCustomerRemarkList() {
+        return customerRemarkList;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -51,7 +58,12 @@ public class Customer {
                 ", nextContactTime='" + nextContactTime + '\'' +
                 ", description='" + description + '\'' +
                 ", address='" + address + '\'' +
+                ", customerRemarkList=" + customerRemarkList +
                 '}';
+    }
+
+    public void setCustomerRemarkList(List<CustomerRemark> customerRemarkList) {
+        this.customerRemarkList = customerRemarkList;
     }
 
     public String getId() {

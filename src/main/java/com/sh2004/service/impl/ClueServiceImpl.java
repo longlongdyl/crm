@@ -82,5 +82,17 @@ public class ClueServiceImpl implements ClueService {
         }
     }
 
+    @Override
+    public  List<Map<String, String>> queryClueEcharts() {
+
+        List<Map<String, String>> map = clueMapper.queryClueEcharts();
+        /*for (Map<String, String> stringStringMap : map) {
+            String name = stringStringMap.get("name");
+            User user = userMapper.selectByPrimaryKey(name);
+            stringStringMap.put("name",user.getName());
+        }*/
+        return map ;
+    }
+
 
 }

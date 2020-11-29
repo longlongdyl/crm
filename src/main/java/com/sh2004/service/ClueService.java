@@ -23,4 +23,5 @@ public interface ClueService {
 
     void deleteActivity(String id);
 
+    List<Map<String, String>> queryClueEcharts();
 }
